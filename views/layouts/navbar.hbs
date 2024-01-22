@@ -1,0 +1,23 @@
+{{#> app}}
+	{{#*inline "navbar"}}
+		<div class="navbar bg-primary text-white">
+			<div class="flex-1">
+				<a href="#" class="text-3xl">
+				{{#if subtitle}}{{subtitle}}{{else}}OCTA{{/if}}
+				</a>
+			</div>
+			<div class="flex-none">
+				<div class="dropdown dropdown-end">
+					<div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+						Contact
+					</div>
+					<ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+						<li class="text-black">Profile</li>
+						<li class="text-black">Settings</li>
+						<li class="text-black">Logout</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	{{/inline}}
+{{/app}}
