@@ -5,5 +5,10 @@ export class AppController {
 
   @Get()
   @Render('index')
-  index() {}
+  index() {
+    return {
+      title: "Dashboard - OCTA"
+    };
+  }
+
 }
