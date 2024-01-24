@@ -1,0 +1,25 @@
+{{#> app}}
+	{{#*inline "content"}}
+		<div class="overflow-x-auto hidden md:block">
+			<table aria-label="load data customer" class="table-auto">
+				<thead class="bg-gray-50 border-b-2 border-gray-200">
+					<tr>
+						<th colspan="2" class="text-center border p-3 text-sm font-semibold tracking-wide">Data Preview</th>
+					</tr>
+					<tr>
+						<th class="border p-3 text-sm font-semibold tracking-wide text-left">ID</th>
+						<th class="border p-3 text-sm font-semibold tracking-wide text-left">NAMA</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each viewData.accounts}}
+						<tr>
+							<td class="p-3 text-sm text-gray-700">{{getId}}</td>
+							<td class="p-3 text-sm text-gray-700">{{getName}}</td>
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+	{{/inline}}
+{{/app}}
