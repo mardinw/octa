@@ -4,7 +4,7 @@
 			<table aria-label="load data customer" class="table-auto">
 				<thead class="bg-gray-50 border-b-2 border-gray-200">
 					<tr>
-						<th colspan="2" class="text-center border p-3 text-sm font-semibold tracking-wide">Data Preview</th>
+						<th colspan="2" class="text-center border p-3 text-sm font-semibold tracking-wide">Data Customer</th>
 					</tr>
 					<tr>
 						<th class="border p-3 text-sm font-semibold tracking-wide text-left">ID</th>
@@ -12,10 +12,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#each viewData.accounts}}
+					{{#each viewData.accounts.[0]}}
 						<tr>
-							<td class="p-3 text-sm text-gray-700">{{getId}}</td>
-							<td class="p-3 text-sm text-gray-700">{{getName}}</td>
+							<td class="p-3 text-sm text-gray-700">{{this.id}}</td>
+							<td class="p-3 text-sm text-gray-700">{{this.first_name}}</td>
 						</tr>
 					{{/each}}
 				</tbody>
