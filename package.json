@@ -27,8 +27,6 @@
     "@nestjs/typeorm": "^10.0.1",
     "autoprefixer": "^10.4.17",
     "express-handlebars": "^7.1.2",
-    "hbs": "^4.2.0",
-    "hbs-utils": "^0.0.4",
     "js-yaml": "^4.1.0",
     "mysql2": "^3.7.1",
     "postcss": "^8.4.33",

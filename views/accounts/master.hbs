@@ -1,25 +1,46 @@
-{{#> app}}
-	{{#*inline "content"}}
-		<div class="overflow-x-auto hidden md:block">
-			<table aria-label="load data customer" class="table-auto">
-				<thead class="bg-gray-50 border-b-2 border-gray-200">
-					<tr>
-						<th colspan="2" class="text-center border p-3 text-sm font-semibold tracking-wide">Data Customer</th>
-					</tr>
-					<tr>
-						<th class="border p-3 text-sm font-semibold tracking-wide text-left">#</th>
-						<th class="border p-3 text-sm font-semibold tracking-wide text-left">NAMA</th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#each viewData.accounts.[0]}}
-						<tr>
-							<td class="p-3 text-sm text-gray-700">{{@index}}</td>
-							<td class="p-3 text-sm text-gray-700">{{this.first_name}}</td>
-						</tr>
-					{{/each}}
-				</tbody>
-			</table>
-		</div>
-	{{/inline}}
-{{/app}}
+<div class="overflow-x-auto hidden md:block">
+	<table aria-label="load data customer" class="table-auto">
+		<thead class="bg-gray-50 border-b-2 border-gray-200">
+			<tr>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">#</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">BANK</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">ARCO</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">PRODUCT</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">CARD NUMBER</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">FIRST NAME</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">LAST NAME</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">SEX</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">DOB</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">JOB TITLE</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">CURRENT BALANCE</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">MIN PAYMENT</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">CREDIT LIMIT</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">CHARGE</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">LAST PAYMENT AMOUNT</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">LAST PAYMENT DATE</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each viewData.accounts.[0]}}
+				<tr>
+					<td class="p-3 text-sm text-gray-700">{{@index}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.bank}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.arco}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.product}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.card_number}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.first_name}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.last_name}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.sex}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.dob?}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.job_title}}</td>
+					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.current_balance)}}</td>
+					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.minimum_payment)}}</td>
+					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.credit_limit)}}</td>
+					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.charge)}}</td>
+					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.last_payment_amount)}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.last_payment_date}}</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

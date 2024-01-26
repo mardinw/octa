@@ -1,19 +1,19 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import { Controller, Get, Query, Res } from '@nestjs/common';
 import { CustomerService } from './customer.service';
+import { Response } from 'express';
 
 @Controller('/accounts')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Get('master')
-  @Render('accounts/master')
-  async getAllCustomers(@Query('page') page = 1) {
+  async getAllCustomers(@Query('page') page = 1, @Res() res: Response ) {
     // Calculate the offset based on the page and limit
     const limit = 10
     const offset = (page - 1) * limit;
     
     const accounts = await this.customerService.query(
-      'SELECT id, first_name FROM customer LIMIT ? OFFSET ?',
+      'SELECT bank, arco, product, card_number, first_name, last_name, sex, dob, job_title, current_balance, minimum_payment, credit_limit, charge, last_payment_amount, last_payment_date FROM customer LIMIT ? OFFSET ?',
       [limit, offset]
     );
 
@@ -30,10 +30,7 @@ export class CustomerController {
       limit,
       totalAccount: totalAccount[0].count,
     };
-   
-    console.log(viewData.page * viewData.limit);
-    return {
-      viewData
-    };
+  
+   return res.render('accounts/master', { viewData: viewData })
   }
 }
