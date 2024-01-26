@@ -1,0 +1,38 @@
+<div class="overflow-x-auto hidden md:block">
+	<table aria-label="load data customer" class="table-auto">
+		<thead class="bg-gray-50 border-b-2 border-gray-200">
+			<tr>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">#</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">CARD NUMBER</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">FIRST NAME</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">DOB</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">CURRENT BALANCE</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">LAST PAYMENT AMOUNT</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">GA/LP</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">LEADER</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">COLLECTOR</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">ACTION</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">DESCRIPTION</th>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">PERMANENT MESSAGES</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each viewData.accounts.[0]}}
+				<tr>
+					<td class="p-3 text-sm text-gray-700">{{@index}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.card_number}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.first_name}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.dob?}}</td>
+					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.current_balance)}}</td>
+					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.last_payment_amount)}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.type_account}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.leader}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.collector}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.action}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.description}}</td>
+					<td class="p-3 text-sm text-gray-700">{{this.permanent_messages}}</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

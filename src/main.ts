@@ -3,8 +3,8 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as hbs from 'express-handlebars';
-import { formatNumber } from './helpers/formatNumber.helper';
-import { parseNumber } from './helpers/parseNumber.helper';
+import { formatNumber, logType, parseNumber } from './helpers/numbers.helper';
+import { formatDate } from './helpers/date.helper';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -16,7 +16,7 @@ async function bootstrap() {
       defaultLayout: 'layout_main',
       layoutsDir: join(__dirname, '..', 'views', 'layouts'),
       partialsDir: join(__dirname, '..', 'views', 'partials'),
-      helpers: { formatNumber, parseNumber},
+      helpers: { formatNumber, parseNumber, formatDate},
   });
 
   app.engine('hbs', exphbs);

@@ -38,7 +38,7 @@
 					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.credit_limit)}}</td>
 					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.charge)}}</td>
 					<td class="p-3 text-sm text-gray-700">{{formatNumber (parseNumber this.last_payment_amount)}}</td>
-					<td class="p-3 text-sm text-gray-700">{{this.last_payment_date}}</td>
+					<td class="p-3 text-sm text-gray-700">{{formatDate this.last_payment_date}}</td>
 				</tr>
 			{{/each}}
 		</tbody>
