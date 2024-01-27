@@ -28,9 +28,9 @@ export class CustomerController {
       accounts,
       page,
       limit,
-      totalAccount: totalAccount[0].count,
     };
-  
-   return res.render('accounts/list', { viewData: viewData })
+
+    console.log(viewData);
+   return res.render('accounts/list', { viewData})
   }
 }

@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as hbs from 'express-handlebars';
-import { formatNumber, logType, parseNumber, indexHelper } from './helpers/numbers.helper';
+import { formatNumber, logType, parseNumber, indexPage } from './helpers/numbers.helper';
 import { formatDate } from './helpers/date.helper';
 
 async function bootstrap() {
@@ -16,7 +16,7 @@ async function bootstrap() {
       defaultLayout: 'layout_main',
       layoutsDir: join(__dirname, '..', 'views', 'layouts'),
       partialsDir: join(__dirname, '..', 'views', 'partials'),
-      helpers: { formatNumber, parseNumber, formatDate, indexHelper},
+      helpers: { formatNumber, parseNumber, formatDate, indexPage},
   });
 
   app.engine('hbs', exphbs);

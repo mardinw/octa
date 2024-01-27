@@ -1,3 +1,5 @@
+import {get} from 'lodash';
+
 export function logType(value) {
     const type = typeof value;
     console.log(`Type of value: ${type}`);
@@ -12,9 +14,20 @@ export function formatNumber(number: number): string {
     return number.toLocaleString('id-ID', {style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
-export function indexHelper(context, options) {
-    const startIndex = options.data.root.startIndex;
-    const index = startIndex + this.index;
+export function indexHelper(...args) {
+    const context = args[args.length - 1];
+    const page = get(context, 'page', 1);
+    const limit = get(context, 'limit', 10);
+    const skip = (page - 1) * limit;
+    return skip + this.index + 1
+}
 
-    return index;
+export function indexPage(index, currentPage, limitPages) {
+    console.log("index:", index);
+    console.log("currentPage:", currentPage);
+    console.log("limitPages:", limitPages);
+
+    let createIndex = (currentPage - 1) * limitPages + index + 1;
+    console.log(createIndex);
+    return createIndex;
 }
