@@ -19,7 +19,7 @@
 		<tbody>
 			{{#each viewData.accounts.[0]}}
 				<tr>
-					<td class="border p-3 text-sm text-gray-700">{{indexPage @index viewData.page viewData.limit}}</td>
+					<td class="border p-3 text-sm text-gray-700">{{indexPage @index viewData.currentPage viewData.limit}}</td>
 					<td class="border p-3 text-sm text-gray-700">{{this.card_number}}</td>
 					<td class="border p-3 text-sm text-gray-700">{{this.first_name}}</td>
 					<td class="border p-3 text-sm text-gray-700">{{this.dob?}}</td>

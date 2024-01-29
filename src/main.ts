@@ -16,7 +16,7 @@ async function bootstrap() {
       defaultLayout: 'layout_main',
       layoutsDir: join(__dirname, '..', 'views', 'layouts'),
       partialsDir: join(__dirname, '..', 'views', 'partials'),
-      helpers: { formatNumber, parseNumber, formatDate, indexPage},
+      helpers: { formatNumber, parseNumber, formatDate, indexPage, logType},
   });
 
   app.engine('hbs', exphbs);
