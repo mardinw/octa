@@ -2,6 +2,7 @@
 	<table aria-label="load data customer" class="table-auto">
 		<thead class="bg-gray-50 border-b-2 border-gray-200">
 			<tr>
+				<th class="border p-3 text-sm font-semibold tracking-wide text-left">NO</th>
 				<th class="border p-5 text-sm font-semibold tracking-wide text-left">CARD NUMBER</th>
 				<th class="border p-4 text-sm font-semibold tracking-wide text-left">FIRST NAME</th>
 				<th class="border p-8 text-sm font-semibold tracking-wide text-left">DOB</th>
@@ -17,9 +18,9 @@
 		</thead>
 		<tbody>
 			{{#with viewData}}
-				{{log currentPage limit}}
-				{{#each accounts.[0] as | account |}}
-					<tr key={{@index}}>
+				{{#each accounts.[0] as | account|}}
+					<tr>
+						<td class="border p-3 text-sm text-gray-700">{{indexPage @index ../currentPage ../limit}}</td>
 						<td class="border p-3 text-sm text-gray-700">{{account.card_number}}</td>
 						<td class="border p-3 text-sm text-gray-700">{{account.first_name}}</td>
 						<td class="border p-3 text-sm text-gray-700">{{formatDate account.dob}}</td>
