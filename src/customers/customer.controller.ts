@@ -28,7 +28,7 @@ export class CustomerController {
     const viewData = {
       title: 'List Account - OCTA',
       subtitle: 'List Account',
-      accounts,
+      accounts: accounts,
       hasPrevious: currentPage > 1,
       previousPage: currentPage - 1,
       hasNext: currentPage < pages,
@@ -37,8 +37,6 @@ export class CustomerController {
       limit,
     };
 
-    console.log(viewData.currentPage);
-
-    return res.render('accounts/list', { viewData});
+    return res.render('accounts/list', { viewData });
   }
 }

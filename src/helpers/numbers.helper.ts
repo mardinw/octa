@@ -1,5 +1,5 @@
 export function logType(value: number) {
-    const type = typeof value;
+    const type = value;
     console.log(`Type of value: ${type}`);
     return '';
 }
@@ -13,9 +13,7 @@ export function formatNumber(number: number): string {
 }
 
 export function indexPage(index: number, currentPage : number, limit :number): number {
-    console.log(typeof currentPage)
-    console.log(typeof limit)
 
-    const createIndex = (currentPage - 1) * limit + index + 1;
+    const createIndex = index + 1 + (currentPage - 1) * limit;
     return createIndex;
 }
