@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Render, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Redirect, Render, Req, Request, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 
@@ -16,6 +16,12 @@ export class AuthController {
     return {viewData};
   }
   
+  @Get('/logout')
+  @Redirect('auth/login')
+  logout(@Req() request) {
+    request.session.user = null;
+  }
+
   @Get('register')
   @Render('auth/register')
   register() {
@@ -28,7 +34,9 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('connect')
-  connect(@Body() signInDto: Record<string, any>) {
+  connect(@Body() signInDto: Record<string, any>, @Req() request, @Res() response) {
+
+
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
 

@@ -5,6 +5,7 @@ import { CustomerController } from './customers/customer.controller';
 import { CustomerService } from './customers/customer.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { PrismaService } from './prisma.service';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -12,7 +13,7 @@ import { UsersModule } from './users/users.module';
   }), AuthModule, UsersModule,
   ],
   controllers: [AppController, CustomerController],
-  providers: [CustomerService],
+  providers: [CustomerService, PrismaService],
 })
 
 export class AppModule {}

@@ -18,7 +18,7 @@
 		</thead>
 		<tbody>
 			{{#with viewData}}
-				{{#each accounts.[0] as | account|}}
+				{{#each accounts as |account| }}
 					<tr>
 						<td class="border p-3 text-sm text-gray-700">{{indexPage @index ../currentPage ../limit}}</td>
 						<td class="border p-3 text-sm text-gray-700">{{account.card_number}}</td>
