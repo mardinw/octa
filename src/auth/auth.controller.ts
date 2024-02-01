@@ -1,11 +1,40 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Redirect, Render, Req, Request, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+// import { AuthGuard } from './auth.guard';
+import { JwtService } from '@nestjs/jwt';
+import { LocalAuthGuard } from './local.auth.guard';
+import { JwtAuthGuard } from './jwt.auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private jwtService: JwtService,
+  ) {}
 
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  async login(@Request() req) {
+    return this.authService.login(req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('profile')
+  getProfile(@Request() req) {
+    return req.user;
+  }
+
+  @Post('register')
+  async register(@Request() req) {
+    const { username, password } = req.body;
+    const newUser = await this.authService.registerUser(username, password);
+
+    return {
+      message: 'User registered successfully',
+      user: newUser,
+    }
+  }
+  /*
   @Get('login')
   @Render('auth/login')
   login() {
@@ -34,8 +63,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('connect')
-  connect(@Body() signInDto: Record<string, any>, @Req() request, @Res() response) {
-
+  connect(@Body() signInDto: Record<string, any>) {
 
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
@@ -44,5 +72,5 @@ export class AuthController {
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
-  }
+  }*/
 }

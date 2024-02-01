@@ -6,11 +6,13 @@ import { CustomerService } from './customers/customer.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PrismaService } from './prisma.service';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: ['.env'],
-  }), AuthModule, UsersModule,
+    isGlobal: true,
+  }), AuthModule, UsersModule, PrismaModule,
   ],
   controllers: [AppController, CustomerController],
   providers: [CustomerService, PrismaService],

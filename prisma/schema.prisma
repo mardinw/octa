@@ -106,13 +106,13 @@ model customer {
   data_owner               String?   @default("ADMIN") @db.VarChar(50)
   type_account             String?   @db.VarChar(20)
   action                   String?   @db.VarChar(20)
-  description              String?   @db.VarChar(500)
+  description              String?   @db.Text
   forecast                 String?   @db.VarChar(20)
   priority                 String?   @db.VarChar(20)
   is_ptp                   String?   @db.VarChar(10)
   ptp_date                 DateTime? @default(dbgenerated("('0000-00-00')")) @db.Date
   ptp_amount               Decimal?  @db.Decimal(19, 2)
-  permanent_messages       String?   @db.VarChar(1500)
+  permanent_messages       String?   @db.Text
   concat_customer          String?   @db.VarChar(100)
 }
 
@@ -354,8 +354,8 @@ model phpgen_users {
 
 model users {
   id         Int     @id @default(autoincrement())
-  username   String? @db.VarChar(30)
-  password   String? @db.VarChar(128)
+  username   String  @unique @db.VarChar(30) 
+  password   String  @db.VarChar(128)
   leader     String? @db.VarChar(30)
   supervisor String? @db.VarChar(30)
   kacab      String? @db.VarChar(30)

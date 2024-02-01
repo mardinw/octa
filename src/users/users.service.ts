@@ -1,23 +1,31 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import { users } from '@prisma/client';
+import { PrismaService } from 'src/prisma.service';
+import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
-export type User = any;
 
 @Injectable()
 export class UsersService {
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
+  constructor(private prisma: PrismaService) {}
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
+
+  async findById(userID: any): Promise<users | null> {
+    try {
+      const user = await this.prisma.users.findUnique({
+        where: {
+          id: userID,
+        }
+      });
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      return user;
+    } catch (error) {
+      throw new NotFoundException('User not found');
+    }
   }
 }
