@@ -1,9 +1,11 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Redirect, Render, Req, Request, Res, UseGuards } from '@nestjs/common';
+import { Session ,Body, Controller, Get, HttpCode, HttpStatus, Post, Redirect, Render, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 // import { AuthGuard } from './auth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { LocalAuthGuard } from './local.auth.guard';
 import { JwtAuthGuard } from './jwt.auth.guard';
+import { Request, Response } from 'express';
+import { SessionMiddleware } from './middlewares/session.middleware';
 
 @Controller('auth')
 export class AuthController {
@@ -12,20 +14,39 @@ export class AuthController {
     private jwtService: JwtService,
   ) {}
 
+  @Get('login')
+  @Render('auth/login')
+  login(@Res() res: Response){
+    const viewData = [];
+    viewData['title'] = 'User Login - OCTA';
+    viewData['subtitle'] = 'User Login';
+
+    return {viewData};
+  }
+
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  async loginAccess(@Req() req: Request, @Res() res: Response, @Session() session: Record<string,any>) {
+    const { username, password } = req.body;
+
+    const result = await this.authService.createToken(username, password);
+
+    if (result) {
+      session.token = result.access_token;
+      return res.redirect('/auth/profile');
+    } else {
+      return res.redirect('/auth/login');
+    }
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  @Get('profile')
+  getProfile() {
+    return "<h1>halaman profile</h1>";
   }
 
   @Post('register')
-  async register(@Request() req) {
+  async register(@Req() req) {
     const { username, password } = req.body;
     const newUser = await this.authService.registerUser(username, password);
 
@@ -34,43 +55,4 @@ export class AuthController {
       user: newUser,
     }
   }
-  /*
-  @Get('login')
-  @Render('auth/login')
-  login() {
-    const viewData = [];
-    viewData['title'] = 'User Login - OCTA';
-    viewData['subtitle'] = 'User Login';
-
-    return {viewData};
-  }
-  
-  @Get('/logout')
-  @Redirect('auth/login')
-  logout(@Req() request) {
-    request.session.user = null;
-  }
-
-  @Get('register')
-  @Render('auth/register')
-  register() {
-    const viewData = [];
-    viewData['title'] = 'User Register - OCTA';
-    viewData['subtitle'] = 'User Register';
-
-    return {viewData};
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Post('connect')
-  connect(@Body() signInDto: Record<string, any>) {
-
-    return this.authService.signIn(signInDto.username, signInDto.password);
-  }
-
-  @UseGuards(AuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }*/
 }

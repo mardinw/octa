@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { CustomerController } from './customers/customer.controller';
 import { CustomerService } from './customers/customer.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { PrismaService } from './prisma.service';
+import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
+import { SessionMiddleware } from './auth/middlewares/session.middleware';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -18,4 +19,9 @@ import { PrismaModule } from './prisma/prisma.module';
   providers: [CustomerService, PrismaService],
 })
 
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(SessionMiddleware).
+      forRoutes('/');
+  }
+}
