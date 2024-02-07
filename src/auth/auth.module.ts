@@ -13,10 +13,10 @@ import { AppModule } from 'src/app.module';
 @Module({
   imports: [
     UsersModule,
-    PassportModule.register({ defaultStrategy: 'local' }),
+    PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '10s' },
     }),
   ],
   controllers: [AuthController],

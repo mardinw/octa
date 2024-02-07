@@ -13,7 +13,7 @@ export class AuthService {
     private prisma: PrismaService,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
+  async validateUser(username: string, password: string) {
     const user = await this.prisma.users.findUnique({
       where: {
         username: username,
@@ -22,18 +22,20 @@ export class AuthService {
 
     if (user && await bcrypt.compare(password, user.password)) {
       const { password, ...result } = user;
-      return result;
+      return true;
     }
 
-    return null;
+    return false;
   }
 
+  /*
   async validateUserByID(userID: number): Promise<users | null> {
     const user = await this.userService.findById(userID);
 
     return user;
   }
-
+  */
+ 
   async registerUser(username: string, password: string): Promise<any> {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await this.prisma.users.create({

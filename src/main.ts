@@ -37,10 +37,9 @@ async function bootstrap() {
       saveUninitialized: false,
     }),
   );
-
-  //app.use(passport.initialize());
-  //app.use(passport.session());
-
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
   app.engine('hbs', exphbs);
 
   app.setViewEngine('hbs');

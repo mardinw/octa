@@ -1,11 +1,9 @@
-import { Session ,Body, Controller, Get, HttpCode, HttpStatus, Post, Redirect, Render, Req, Res, UseGuards } from '@nestjs/common';
+import { Session ,Body, Controller, Get, HttpCode, HttpStatus, Post, Redirect, Render, Req, Res, UseGuards, Next } from '@nestjs/common';
 import { AuthService } from './auth.service';
-// import { AuthGuard } from './auth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { LocalAuthGuard } from './local.auth.guard';
 import { JwtAuthGuard } from './jwt.auth.guard';
-import { Request, Response } from 'express';
-import { SessionMiddleware } from './middlewares/session.middleware';
+import { Response }  from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -26,23 +24,52 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async loginAccess(@Req() req: Request, @Res() res: Response, @Session() session: Record<string,any>) {
-    const { username, password } = req.body;
+  async loginAccess(@Req() req, @Res() res){
 
-    const result = await this.authService.createToken(username, password);
-
-    if (result) {
-      session.token = result.access_token;
-      return res.redirect('/auth/profile');
+    const username = req.body.username;
+    const password = req.body.password;
+    const isValid = await this.authService.validateUser(username, password);
+    
+    if (isValid) {
+      const result = await this.authService.createToken(username, password);
+      res.cookie(
+        'access_token', result.access_token,
+        {
+          httpOnly: true,
+          expires: new Date(Date.now() + 60 * 1000), // 6 detik
+        }
+      );
+      res.status(200).json({ success: true, access_token: result.access_token })
     } else {
-      return res.redirect('/auth/login');
+      return;
+    }
+  }
+
+  @Get('check')
+  async checkSession(@Res() res, @Req() req ) {
+    const username = req.user;
+    if (username) {
+      return res.redirect('profile')
+      /*
+      return {
+        message: 'session is available',
+        username
+      };*/
     }
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('logout')
+  logout(@Res() res, @Session() session: Record<string, any>) {
+    session.token = null;
+    return res.redirect('login');
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile() {
-    return "<h1>halaman profile</h1>";
+  async getProfile(@Req() req, @Res() res) {
+    console.error(req.user);
+    return "sukses";
   }
 
   @Post('register')
