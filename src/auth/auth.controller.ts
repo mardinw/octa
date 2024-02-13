@@ -3,7 +3,8 @@ import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { LocalAuthGuard } from './local.auth.guard';
 import { JwtAuthGuard } from './jwt.auth.guard';
-import { Response }  from 'express';
+import { Response, Request }  from 'express';
+import { UserValidator } from 'src/validators/user.validator';
 
 @Controller('auth')
 export class AuthController {
@@ -21,16 +22,31 @@ export class AuthController {
 
     return {viewData};
   }
+  
+  @Get('register')
+  @Render('auth/register')
+  createAccount(@Res() res: Response){
+    const viewData = [];
+    viewData['title'] = 'Create User - OCTA';
+    viewData['subtitle'] = 'Create User';
 
-  @UseGuards(LocalAuthGuard)
-  @Post('login')
-  async loginAccess(@Req() req, @Res() res){
+    return {viewData};
+  }
 
-    const username = req.body.username;
-    const password = req.body.password;
-    const isValid = await this.authService.validateUser(username, password);
+  @Post('connect')
+  async loginAccess(@Body() body , @Res() res: Response, @Session() session: Record<string, any>){
+
+    const username = body.username;
+    const password = body.password;
+    const user = await this.authService.validateUser(username, password);
     
-    if (isValid) {
+    if (user) {
+      session.user =  {
+        id: user.id,
+        name: user.username,
+      }
+      res.redirect('/accounts/list')
+      /*
       const result = await this.authService.createToken(username, password);
       res.cookie(
         'access_token', result.access_token,
@@ -38,31 +54,16 @@ export class AuthController {
           httpOnly: true,
           expires: new Date(Date.now() + 60 * 1000), // 6 detik
         }
-      );
-      res.status(200).json({ success: true, access_token: result.access_token })
+      );*/
     } else {
-      return;
+      res.redirect('login');
     }
   }
 
-  @Get('check')
-  async checkSession(@Res() res, @Req() req ) {
-    const username = req.user;
-    if (username) {
-      return res.redirect('profile')
-      /*
-      return {
-        message: 'session is available',
-        username
-      };*/
-    }
-  }
-
-  @UseGuards(JwtAuthGuard)
   @Get('logout')
-  logout(@Res() res, @Session() session: Record<string, any>) {
-    session.token = null;
-    return res.redirect('login');
+  @Redirect('login')
+  logout(@Res() res, @Req() req) {
+    return req.session.user = null;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -72,14 +73,21 @@ export class AuthController {
     return "sukses";
   }
 
-  @Post('register')
-  async register(@Req() req) {
-    const { username, password } = req.body;
-    const newUser = await this.authService.registerUser(username, password);
+  @Post('create')
+  async register(@Body() body,@Req() req, @Res() res) {
 
-    return {
-      message: 'User registered successfully',
-      user: newUser,
+    const toValidate: string[] = ['username', 'password']
+    const errors: string[] = UserValidator.validate(body, toValidate)
+    if (errors.length > 0) {
+      req.session.flashErrors = errors;
+      return res.redirect('register')
+    } else {
+      const username = body.username;
+      const password = body.password;
+
+      await this.authService.registerUser(username, password);
+
+      return res.redirect('login');
     }
   }
 }

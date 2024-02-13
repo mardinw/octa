@@ -37,9 +37,22 @@ async function bootstrap() {
       saveUninitialized: false,
     }),
   );
+  /*
   app.use(passport.initialize());
   app.use(passport.session());
-  
+  */
+
+  // check session
+  app.use(function(req, res, next) {
+    res.locals.session = req.session;
+    const flashErrors: string[] = req.session.flashErrors;
+    if (flashErrors) {
+      res.locals.flashErrors = flashErrors;
+      req.session.flashErrors = null;
+    }
+    next();
+  });
+
   app.engine('hbs', exphbs);
 
   app.setViewEngine('hbs');
