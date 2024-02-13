@@ -20,7 +20,10 @@ export class AuthController {
     viewData['title'] = 'User Login - OCTA';
     viewData['subtitle'] = 'User Login';
 
-    return {viewData};
+    return {
+      viewData,
+      hideNavbar: true,
+    };
   }
   
   @Get('register')
@@ -30,7 +33,10 @@ export class AuthController {
     viewData['title'] = 'Create User - OCTA';
     viewData['subtitle'] = 'Create User';
 
-    return {viewData};
+    return {
+      viewData,
+      hideNavbar: true,
+    };
   }
 
   @Post('connect')
