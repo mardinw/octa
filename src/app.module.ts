@@ -8,15 +8,17 @@ import { UsersModule } from './users/users.module';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AdminModule } from './admin/admin.module';
+import { DatabaseService } from './database/database.service';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: ['.env'],
     isGlobal: true,
-  }), AuthModule, UsersModule, PrismaModule, AdminModule,
+  }), AuthModule, UsersModule, PrismaModule, AdminModule, DatabaseModule,
   ],
   controllers: [AppController, AccountController],
-  providers: [AccountService, PrismaService],
+  providers: [AccountService, PrismaService, DatabaseService],
 })
 
 export class AppModule {}

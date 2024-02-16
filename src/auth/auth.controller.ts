@@ -51,16 +51,10 @@ export class AuthController {
         id: user.id,
         name: user.username,
       }
+
+      const timeNow = Date.now();
+      await this.authService.createLoginTime(username, timeNow);
       res.redirect('/accounts/list')
-      /*
-      const result = await this.authService.createToken(username, password);
-      res.cookie(
-        'access_token', result.access_token,
-        {
-          httpOnly: true,
-          expires: new Date(Date.now() + 60 * 1000), // 6 detik
-        }
-      );*/
     } else {
       res.redirect('login');
     }
