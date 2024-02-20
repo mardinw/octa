@@ -38,3 +38,64 @@
 		</tbody>
 	</table>
 </div>
+<div class="flex join m-4 justify-center">
+	<!-- prev button -->
+	<button class="join-item btn btn-square hover:btn-primary active:btn-primary"
+	{{#if (eqPage viewData.currentPage 1)}}
+		disabled
+	{{ else }}
+	{{/if}}
+	onclick="window.location.href='list?page=1'"
+ >&lt;&lt;</button>
+
+	<!-- first page -->
+	<button class="join-item btn btn-square hover:btn-primary active:btn-primary"
+	{{#if (eqPage viewData.currentPage 1)}}
+		disabled
+	{{ else }}
+  {{/if}}
+				 onclick="window.location.href='list?page={{#if (eqPage viewData.currentPage 1)}}{{viewData.currentPage}}{{else}}{{subPage viewData.currentPage 1}}{{/if}}'"
+		>
+		{{#if (eqPage viewData.currentPage 1)}}
+			{{viewData.currentPage}}
+		{{ else }}
+			{{subPage viewData.currentPage 1 }}
+		{{/if}}
+	</button>
+
+	<!-- current page -->
+	<button class="join-item btn btn-square disabled hover:btn-primary active:btn-primary"
+		disabled
+		>
+		{{#if (eqPage viewData.currentPage 1)}}
+			...
+		{{ else }}
+			{{viewData.currentPage}}
+		{{/if}}
+	</button>
+
+	<!-- next page -->
+	<button class="join-item btn btn-square hover:btn-primary active:btn-primary"
+	{{#if (eqPage viewData.currentPage viewData.pages)}}
+		disabled
+	{{ else }}
+  {{/if}}
+				 onclick="window.location.href='list?page={{#if (eqPage viewData.currentPage viewData.pages)}}{{viewData.currentPage}}{{else}}{{addPage viewData.currentPage viewData.pages}}{{/if}}'"
+		>
+		{{#if (eqPage viewData.currentPage viewData.pages)}}
+			...
+		{{ else }}
+			{{addPage viewData.currentPage viewData.pages}}
+		{{/if}}
+	</button>
+
+	<!-- last page -->
+	<button class="join-item btn btn-square hover:btn-primary active:btn-primary"
+	{{#if (eqPage viewData.currentPage viewData.pages)}}
+		disabled
+	{{ else }}
+	{{/if}}
+				 onclick="window.location.href='list?page={{viewData.pages}}'"
+ >&gt;&gt;</button>
+
+</div>

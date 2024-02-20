@@ -17,8 +17,11 @@ export class AccountController {
 
       const customers = await this.customerService.customersWithLimitOffset(limit, offset);
 
+      const pages = await this.customerService.customerCount(limit);
+
       const viewData = {
         accounts: customers,
+        pages,
         currentPage,
         limit,
       }

@@ -1,3 +1,5 @@
+import { parseArgs } from "util";
+
 export function logType(value: number) {
     const type = value;
     console.log(`Type of value: ${type}`);
@@ -17,3 +19,26 @@ export function indexPage(index: number, currentPage : number, limit :number): n
     const createIndex = index + 1 + (currentPage - 1) * limit;
     return createIndex;
 }
+
+export function eqPage(currentPage, pages): boolean {
+    if (currentPage === pages) {
+        return true;
+    }
+    return false;
+}
+
+export function addPage(currentPage, pages) {
+    if (currentPage < pages) {
+        return currentPage + 1;
+    }
+    return;
+}
+
+export function subPage(currentPage, pages) {
+    if (currentPage > pages) {
+        return currentPage - 1;
+    }
+
+    return;
+}
+
