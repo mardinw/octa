@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { AccountController } from './accounts/account.controller';
 import { AccountService } from './accounts/account.service';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 //import { PrismaService } from './prisma/prisma.service';
 //import { PrismaModule } from './prisma/prisma.module';
 import { AdminModule } from './admin/admin.module';
@@ -15,7 +14,7 @@ import { DatabaseModule } from './database/database.module';
   imports: [ConfigModule.forRoot({
     envFilePath: ['.env'],
     isGlobal: true,
-  }), AuthModule, UsersModule, AdminModule, DatabaseModule,
+  }), AuthModule, AdminModule, DatabaseModule,
   ],
   controllers: [AppController, AccountController],
   providers: [AccountService, DatabaseService],
