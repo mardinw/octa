@@ -9,15 +9,18 @@ import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import { DatabaseService } from './database/database.service';
 import { DatabaseModule } from './database/database.module';
+import { UsersService } from './users/users.service';
+import { UsersController } from './users/users.controller';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: ['.env'],
     isGlobal: true,
-  }), AuthModule, AdminModule, DatabaseModule,
+  }), AuthModule, AdminModule, DatabaseModule, UsersModule,
   ],
-  controllers: [AppController, AccountController],
-  providers: [AccountService, DatabaseService],
+  controllers: [AppController, AccountController, UsersController],
+  providers: [AccountService, DatabaseService, UsersService],
 })
 
 export class AppModule {}

@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { users } from '@prisma/client';
 //import { PrismaService } from 'src/prisma/prisma.service';
 //import { UsersService } from 'src/users/users.service';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { DatabaseService } from 'src/database/database.service';
 import { LoginDto } from './dto/login-user.dto';
 
@@ -25,6 +25,7 @@ export class AuthService {
       const user = result[0];
       if( user && await bcrypt.compare(password, user.password)) {
         const { password, ...result } = user;
+
         return user;
       }
     } catch (err) {

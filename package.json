@@ -29,7 +29,7 @@
     "@nestjs/typeorm": "^10.0.1",
     "@prisma/client": "^5.9.0",
     "autoprefixer": "^10.4.17",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "class-validator": "^0.14.1",
     "express-handlebars": "^7.1.2",
     "express-session": "^1.18.0",
