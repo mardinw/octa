@@ -63,6 +63,7 @@ export class AuthController {
   @Get('logout')
   @Redirect('login')
   logout(@Res() res, @Req() req) {
+
     return req.session.user = null;
   }
 

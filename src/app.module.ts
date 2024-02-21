@@ -12,12 +12,13 @@ import { DatabaseModule } from './database/database.module';
 import { UsersService } from './users/users.service';
 import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
+import { PdfkitModule } from './pdfkit/pdfkit.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: ['.env'],
     isGlobal: true,
-  }), AuthModule, AdminModule, DatabaseModule, UsersModule,
+  }), AuthModule, AdminModule, DatabaseModule, UsersModule, PdfkitModule,
   ],
   controllers: [AppController, AccountController, UsersController],
   providers: [AccountService, DatabaseService, UsersService],

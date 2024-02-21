@@ -5,6 +5,7 @@ import { initDatabaseConnection } from "../configs/db/mysql.utils";
 //import { PrismaService } from "src/prisma/prisma.service";
 //import { customer } from "@prisma/client";
 import { DatabaseService } from "src/database/database.service";
+import { RowDataPacket } from "mysql2";
 
 @Injectable()
 export class AccountService {
@@ -24,6 +25,25 @@ export class AccountService {
         'SELECT * FROM customer LIMIT ? OFFSET ?',
         [sanitizedLimit, sanitizedOffset]
       );
+
+      return allCustomers;
+    } catch (error) {
+        throw new Error(`Error fetching customers: ${error.message}`);
+    } finally {
+      connection.release();
+    }
+  }
+  
+  async customersAll() {
+
+    const connection = await this.databaseService.getConnection();
+  
+    try {
+      const queryResult = await connection.query<RowDataPacket[]>(
+        'SELECT * FROM customer',
+      );
+
+      const allCustomers: RowDataPacket[] = Array.isArray(queryResult) ? queryResult[0]: [];
 
       return allCustomers;
     } catch (error) {
