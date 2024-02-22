@@ -13,12 +13,13 @@ import { UsersService } from './users/users.service';
 import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { PdfkitModule } from './pdfkit/pdfkit.module';
+import { ExcelkitModule } from './excelkit/excelkit.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: ['.env'],
     isGlobal: true,
-  }), AuthModule, AdminModule, DatabaseModule, UsersModule, PdfkitModule,
+  }), AuthModule, AdminModule, DatabaseModule, UsersModule, PdfkitModule, ExcelkitModule,
   ],
   controllers: [AppController, AccountController, UsersController],
   providers: [AccountService, DatabaseService, UsersService],
