@@ -37,3 +37,6 @@ lerna-debug.log*
 # environment
 .env
 .env.local
+
+external/pdf
+external/excel
