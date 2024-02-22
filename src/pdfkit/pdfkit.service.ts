@@ -6,15 +6,17 @@ import { Response } from 'express';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { promisify } from 'util';
+import { createWriteStream } from 'fs';
 
 @Injectable()
 export class PdfkitService {
-  async generateTablePDF(data: any[], res: Response): Promise<void> {
+  async generateTablePDF(data: any[], filePath: string, res: Response): Promise<void> {
       // const data = await this.customerService.customersAll();
 
       const doc = new PDFDocument();
 
-      const stream = doc.pipe(blobStream());
+      const stream = await createWriteStream(filePath);
+      //const stream = doc.pipe(blobStream());
       doc.pipe(res);
 
 

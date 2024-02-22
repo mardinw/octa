@@ -16,7 +16,9 @@ export class PdfkitController {
   async customersAll(@Res() res: Response, @Session() session:Record<string, any>): Promise<void> {
       try {
         const rowData = await this.accountService.customersAll();
-        await this.pdfKit.generateTablePDF(rowData, res);
+        const filePath = 'external/pdf/result.pdf';
+
+        await this.pdfKit.generateTablePDF(rowData, filePath, res);
         console.log('table pdf generated successfully')
       } catch (err) {
         console.error(err);
