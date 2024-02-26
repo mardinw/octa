@@ -2,8 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { initDatabaseConnection } from "../configs/db/mysql.utils";
-//import { PrismaService } from "src/prisma/prisma.service";
-//import { customer } from "@prisma/client";
 import { DatabaseService } from "src/database/database.service";
 import { RowDataPacket } from "mysql2";
 
@@ -69,4 +67,37 @@ export class AccountService {
       connection.release();
     }
   }
+
+  async customerCardNumber(cardNumber: number) {
+    const connection = await this.databaseService.getConnection();
+
+    try {
+      const [ result ] = await connection.query(
+        'SELECT * FROM customer WHERE card_number = ?',
+        [cardNumber]
+      )
+
+      return result;
+    } catch (error) {
+      throw new Error(`Error fetching customers: ${error.message}`);
+    } finally {
+      connection.release();
+    }
+  }
+
+  async customerFilterPriority(priorityName: string) {
+    const connection = await this.databaseService.getConnection();
+
+    try {
+      const [allCustomerPriority] = await connection.query(
+        'SELECT * FROM customer WHERE priority = ?',
+        [priorityName]
+      ); 
+      return allCustomerPriority;
+    } catch (error) {
+      throw new Error(`Error fetching customers: ${error.message}`);
+    } finally {
+      connection.release();
+    }
+  } 
 }

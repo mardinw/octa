@@ -12,7 +12,7 @@ export class AccountController {
 
     if (session.user) {
       const currentPage : number = parseInt(page, 10);
-      const limit : number = 10
+      const limit : number = 20
       const offset : number = (currentPage - 1) * limit;
 
       const customers = await this.customerService.customersWithLimitOffset(limit, offset);

@@ -45,7 +45,8 @@ export class AuthController {
     const username = body.username;
     const password = body.password;
     const user = await this.authService.validateUser(username, password);
-    
+
+
     if (user) {
       session.user =  {
         id: user.id,

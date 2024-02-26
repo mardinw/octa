@@ -14,6 +14,7 @@ import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { PdfkitModule } from './pdfkit/pdfkit.module';
 import { ExcelkitModule } from './excelkit/excelkit.module';
+import { PriorityService } from './priority/priority.service';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -22,7 +23,7 @@ import { ExcelkitModule } from './excelkit/excelkit.module';
   }), AuthModule, AdminModule, DatabaseModule, UsersModule, PdfkitModule, ExcelkitModule,
   ],
   controllers: [AppController, AccountController, UsersController],
-  providers: [AccountService, DatabaseService, UsersService],
+  providers: [AccountService, DatabaseService, UsersService, PriorityService],
 })
 
 export class AppModule {}

@@ -4,6 +4,7 @@ import { createReadStream } from 'fs';
 
 @Injectable()
 export class ExcelkitService {
+  /*
   async generateExcel(data: any[], filePath: string): Promise<void> {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Sheet 1');
@@ -20,7 +21,8 @@ export class ExcelkitService {
     // save workbook to a file
     await workbook.xlsx.writeFile(filePath);
   }
-
+*/
+  w
   async streamExcel(data: any[], res: any): Promise<void> {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Sheet 1');
@@ -40,7 +42,7 @@ export class ExcelkitService {
 
     res.setHeader(
       'Content-Disposition',
-      'attachment; filename=result.xlsx',
+      'attachment; filename=result.xls',
     );
 
     await workbook.xlsx.write(res);

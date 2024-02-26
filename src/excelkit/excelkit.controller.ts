@@ -9,6 +9,7 @@ export class ExcelkitController {
     private readonly accountService: AccountService,
   ) {}
 
+  /*
   @Get('generate')
   async generateExcel() {
     const data = await this.accountService.customersAll();
@@ -18,8 +19,9 @@ export class ExcelkitController {
 
     console.log('excel file generated!');
   }
+*/
 
-  @Get('stream')
+  @Get('exports')
   async streamExcel(@Res() res) {
     const data = await this.accountService.customersAll();
 

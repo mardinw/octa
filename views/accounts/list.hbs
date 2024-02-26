@@ -1,101 +1,114 @@
-<DIV CLass="join flex justify-center p-4">
-	<!-- prev button -->
-	<button class="join-item btn-outline btn-square btn-info hover:btn-info active:btn-info text-white"
-	{{#if (eqPage viewData.currentPage 1)}}
-		disabled
-	{{ else }}
-	{{/if}}
-	onclick="window.location.href='list?page=1'"
- >&lt;&lt;</button>
+<div class="flex-grow p-6 md:overflow-y-auto md:p-12">
+	<main class="container md:container mx-auto">
+		<div class="md:mx-auto w-full bg-white overflow-x-auto md:block">
+			<div class="join flex justify-center p-4">
+				<!-- prev button -->
+				<button class="join-item btn-outline btn-square btn-info hover:btn-info active:btn-info text-white"
+				{{#if (eqPage viewData.currentPage 1)}}
+					disabled
+				{{ else }}
+				{{/if}}
+				onclick="window.location.href='list?page=1'"
+			 >&lt;&lt;</button>
 
-	<!-- first page -->
-	<button class="join-item btn btn-info btn-square hover:btn-info active:btn-info text-white"
-	{{#if (eqPage viewData.currentPage 1)}}
-		disabled
-	{{ else }}
-  {{/if}}
-				 onclick="window.location.href='list?page={{#if (eqPage viewData.currentPage 1)}}{{viewData.currentPage}}{{else}}{{subPage viewData.currentPage 1}}{{/if}}'"
-		>
-		{{#if (eqPage viewData.currentPage 1)}}
-			{{viewData.currentPage}}
-		{{ else }}
-			{{subPage viewData.currentPage 1 }}
-		{{/if}}
-	</button>
+				<!-- first page -->
+				<button class="join-item btn btn-info btn-square hover:btn-info active:btn-info text-white"
+				{{#if (eqPage viewData.currentPage 1)}}
+					disabled
+				{{ else }}
+				{{/if}}
+							 onclick="window.location.href='list?page={{#if (eqPage viewData.currentPage 1)}}{{viewData.currentPage}}{{else}}{{subPage viewData.currentPage 1}}{{/if}}'"
+					>
+					{{#if (eqPage viewData.currentPage 1)}}
+						{{viewData.currentPage}}
+					{{ else }}
+						{{subPage viewData.currentPage 1 }}
+					{{/if}}
+				</button>
 
-	<!-- current page -->
-	<button class="join-item btn-outline btn-square btn-info hover:btn-primary active:btn-primary text-white"
-		disabled
-		>
-		{{#if (eqPage viewData.currentPage 1)}}
-			...
-		{{ else }}
-			{{viewData.currentPage}}
-		{{/if}}
-	</button>
+				<!-- current page -->
+				<button class="join-item btn-outline btn-square btn-info hover:btn-primary active:btn-primary text-white"
+					disabled
+					>
+					{{#if (eqPage viewData.currentPage 1)}}
+						...
+					{{ else }}
+						{{viewData.currentPage}}
+					{{/if}}
+				</button>
 
-	<!-- next page -->
-	<button class="join-item btn btn-info btn-square hover:btn-info active:btn-info text-white"
-	{{#if (eqPage viewData.currentPage viewData.pages)}}
-		disabled
-	{{ else }}
-  {{/if}}
-				 onclick="window.location.href='list?page={{#if (eqPage viewData.currentPage viewData.pages)}}{{viewData.currentPage}}{{else}}{{addPage viewData.currentPage viewData.pages}}{{/if}}'"
-		>
-		{{#if (eqPage viewData.currentPage viewData.pages)}}
-			...
-		{{ else }}
-			{{addPage viewData.currentPage viewData.pages}}
-		{{/if}}
-	</button>
+				<!-- next page -->
+				<button class="join-item btn btn-info btn-square hover:btn-info active:btn-info text-white"
+				{{#if (eqPage viewData.currentPage viewData.pages)}}
+					disabled
+				{{ else }}
+				{{/if}}
+							 onclick="window.location.href='list?page={{#if (eqPage viewData.currentPage viewData.pages)}}{{viewData.currentPage}}{{else}}{{addPage viewData.currentPage viewData.pages}}{{/if}}'"
+					>
+					{{#if (eqPage viewData.currentPage viewData.pages)}}
+						...
+					{{ else }}
+						{{addPage viewData.currentPage viewData.pages}}
+					{{/if}}
+				</button>
 
-	<!-- last page -->
-	<button class="join-item btn-outline btn-square btn-info hover:btn-info active:btn-info text-white"
-	{{#if (eqPage viewData.currentPage viewData.pages)}}
-		disabled
-	{{ else }}
-	{{/if}}
-				 onclick="window.location.href='list?page={{viewData.pages}}'"
- >&gt;&gt;</button>
+				<!-- last page -->
+				<button class="join-item btn-outline btn-square btn-info hover:btn-info active:btn-info text-white"
+				{{#if (eqPage viewData.currentPage viewData.pages)}}
+					disabled
+				{{ else }}
+				{{/if}}
+							 onclick="window.location.href='list?page={{viewData.pages}}'"
+			 >&gt;&gt;</button>
 
-</div>
-<div class="overflow-x-auto hidden md:block">
-	<table aria-label="load data customer" class="table-auto">
-		<thead class="bg-gray-50 border-b-2 border-gray-200">
-			<tr>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">NO</th>
-				<th class="border p-5 text-sm font-semibold tracking-wide text-left">CARD NUMBER</th>
-				<th class="border p-4 text-sm font-semibold tracking-wide text-left">FIRST NAME</th>
-				<th class="border p-8 text-sm font-semibold tracking-wide text-left">DOB</th>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">CURRENT BALANCE</th>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">LAST PAYMENT AMOUNT</th>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">GA/LP</th>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">LEADER</th>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">COLLECTOR</th>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">ACTION</th>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">DESCRIPTION</th>
-				<th class="border p-3 text-sm font-semibold tracking-wide text-left">PERMANENT MESSAGES</th>
-			</tr>
-		</thead>
-		<tbody>
-			{{#with viewData}}
-				{{#each accounts as |account| }}
-					<tr>
-						<td class="border p-3 text-sm text-gray-700">{{indexPage @index ../currentPage ../limit}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{account.card_number}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{account.first_name}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{formatDate account.dob}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{formatNumber (parseNumber account.current_balance)}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{formatNumber (parseNumber account.last_payment_amount)}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{account.type_account}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{account.leader}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{account.collector}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{account.action}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{account.description}}</td>
-						<td class="border p-3 text-sm text-gray-700">{{account.permanent_messages}}</td>
-					</tr>
-				{{/each}}
-			{{/with}}
-		</tbody>
-	</table>
+			</div>
+			<!-- button for export or reload -->
+			<div class="join p-4 grid grid-cols-2">
+				<button class="join-item btn btn-info btn-outline" onclick="window.location.href='/excel/exports'"><i class="fa-regular fa-file-excel fa-lg text-white"></i></button>
+				<button class="join-item btn btn-info btn-outline"><i class="fa-regular fa-file-pdf fa-lg text-white"></i></button>
+			</div>
+			<!-- end button -->
+
+			<div class="overflow-x-auto md:block">
+				<table aria-label="load data customer" class="table-auto">
+					<thead class="bg-gray-50 border-b-2 border-gray-200">
+						<tr>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">NO</th>
+							<th class="border p-5 text-sm font-semibold tracking-wide text-left">CARD NUMBER</th>
+							<th class="border p-4 text-sm font-semibold tracking-wide text-left">FIRST NAME</th>
+							<th class="border p-8 text-sm font-semibold tracking-wide text-left">DOB</th>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">CURRENT BALANCE</th>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">LAST PAYMENT AMOUNT</th>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">GA/LP</th>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">LEADER</th>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">COLLECTOR</th>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">ACTION</th>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">DESCRIPTION</th>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">PERMANENT MESSAGES</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#with viewData}}
+							{{#each accounts as |account| }}
+								<tr>
+									<td class="border p-3 text-sm text-gray-700">{{indexPage @index ../currentPage ../limit}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{account.card_number}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{account.first_name}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{formatDate account.dob}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{formatNumber (parseNumber account.current_balance)}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{formatNumber (parseNumber account.last_payment_amount)}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{account.type_account}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{account.leader}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{account.collector}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{account.action}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{account.description}}</td>
+									<td class="border p-3 text-sm text-gray-700">{{account.permanent_messages}}</td>
+								</tr>
+							{{/each}}
+						{{/with}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
 </div>
