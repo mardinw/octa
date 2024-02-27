@@ -73,6 +73,9 @@
 				<table aria-label="load data customer" class="table-auto">
 					<thead class="bg-gray-50 border-b-2 border-gray-200">
 						<tr>
+							<th class="border p-3 text-sm font-semibold tracking-wide text-left">
+								<input type="checkbox" checked="checked" class="checkbox" />
+							</th>
 							<th class="border p-3 text-sm font-semibold tracking-wide text-left">NO</th>
 							<th class="border p-5 text-sm font-semibold tracking-wide text-left">CARD NUMBER</th>
 							<th class="border p-4 text-sm font-semibold tracking-wide text-left">FIRST NAME</th>
@@ -91,6 +94,9 @@
 						{{#with viewData}}
 							{{#each accounts as |account| }}
 								<tr>
+									<td class="border p-3 text-sm text-gray-700">
+										<input type="checkbox" checked="checked" class="checkbox" />
+									</td>
 									<td class="border p-3 text-sm text-gray-700">{{indexPage @index ../currentPage ../limit}}</td>
 									<td class="border p-3 text-sm text-gray-700">{{account.card_number}}</td>
 									<td class="border p-3 text-sm text-gray-700">{{account.first_name}}</td>
