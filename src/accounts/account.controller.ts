@@ -31,4 +31,42 @@ export class AccountController {
       return res.redirect('/auth/login');
     }
   }
+
+  @Get('show')
+  @Render('accounts/show')
+  async byPriority(@Query('page') page = '1', @Query('filter') filter: string, @Res() res: Response, @Session() session: Record<string, any>) {
+    if (session.user) {
+      const currentPage : number = parseInt(page, 10);
+      const limit : number = 20
+      const offset : number = (currentPage - 1) * limit;
+      
+      const customers = await this.customerService.customerFilterPriority(filter, limit, offset);
+
+      const pages = await this.customerService.customerCountPriority(limit, filter);
+      
+      const viewData = {
+        accounts: customers,
+        pages,
+        filter,
+        currentPage,
+        limit,
+      }
+
+      return { viewData };
+    } else {
+      return res.redirect('/auth/login');
+    }
+  }
+
+  @Get('card')
+  async byCardNumber(@Query('id') id : string, @Res() res: Response, @Session() session: Record<string, any>) { 
+    if (session.user) {
+      const cardNumber = parseInt(id, 10);
+      const customer = await this.customerService.customerCardNumber(cardNumber);
+      console.log(customer);
+      return;
+    } else {
+      return res.redirect('/auth/login');
+    }
+  }
 }

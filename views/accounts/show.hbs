@@ -8,7 +8,7 @@
 					disabled
 				{{ else }}
 				{{/if}}
-				onclick="window.location.href='list?page=1'"
+						onclick="window.location.href='show?page=1&filter={{viewData.filter}}'"
 			 >&lt;&lt;</button>
 
 				<!-- first page -->
@@ -17,7 +17,7 @@
 					disabled
 				{{ else }}
 				{{/if}}
-							 onclick="window.location.href='list?page={{#if (eqPage viewData.currentPage 1)}}{{viewData.currentPage}}{{else}}{{subPage viewData.currentPage 1}}{{/if}}'"
+						onclick="window.location.href='show?page={{#if (eqPage viewData.currentPage 1)}}{{viewData.currentPage}}{{else}}{{subPage viewData.currentPage 1}}{{/if}}&filter={{viewData.filter}}'"
 					>
 					{{#if (eqPage viewData.currentPage 1)}}
 						{{viewData.currentPage}}
@@ -43,7 +43,7 @@
 					disabled
 				{{ else }}
 				{{/if}}
-							 onclick="window.location.href='list?page={{#if (eqPage viewData.currentPage viewData.pages)}}{{viewData.currentPage}}{{else}}{{addPage viewData.currentPage viewData.pages}}{{/if}}'"
+						onclick="window.location.href='show?page={{#if (eqPage viewData.currentPage viewData.pages)}}{{viewData.currentPage}}{{else}}{{addPage viewData.currentPage viewData.pages}}{{/if}}&filter={{viewData.filter}}'"
 					>
 					{{#if (eqPage viewData.currentPage viewData.pages)}}
 						...
@@ -58,7 +58,7 @@
 					disabled
 				{{ else }}
 				{{/if}}
-							 onclick="window.location.href='list?page={{viewData.pages}}'"
+						onclick="window.location.href='show?page={{viewData.pages}}&filter={{viewData.filter}}'"
 			 >&gt;&gt;</button>
 
 			</div>

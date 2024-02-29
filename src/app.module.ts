@@ -15,12 +15,14 @@ import { UsersModule } from './users/users.module';
 import { PdfkitModule } from './pdfkit/pdfkit.module';
 import { ExcelkitModule } from './excelkit/excelkit.module';
 import { PriorityService } from './priority/priority.service';
+import { FilesModule } from './files/files.module';
+import { PriorityModule } from './priority/priority.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: ['.env'],
     isGlobal: true,
-  }), AuthModule, AdminModule, DatabaseModule, UsersModule, PdfkitModule, ExcelkitModule,
+  }), AuthModule, AdminModule, DatabaseModule, UsersModule, PdfkitModule, ExcelkitModule, FilesModule, PriorityModule,
   ],
   controllers: [AppController, AccountController, UsersController],
   providers: [AccountService, DatabaseService, UsersService, PriorityService],

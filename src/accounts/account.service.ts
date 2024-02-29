@@ -67,6 +67,25 @@ export class AccountService {
       connection.release();
     }
   }
+  
+  async customerCountPriority(limit: number, priorityName: string) {
+    const connection = await this.databaseService.getConnection();
+    try {
+      const [ result ] = await connection.query(
+        'SELECT COUNT(*) AS count FROM customer WHERE priority = ?',
+        [priorityName]
+      );
+
+      const resultF = result[0].count;
+      const count = Math.ceil(resultF/limit); 
+      return count;
+    } catch (error) {
+      throw new Error(`Error fetching customers: ${error.message}`);
+    } finally {
+      connection.release();
+    }
+  }
+
 
   async customerCardNumber(cardNumber: number) {
     const connection = await this.databaseService.getConnection();
@@ -85,13 +104,15 @@ export class AccountService {
     }
   }
 
-  async customerFilterPriority(priorityName: string) {
+  async customerFilterPriority(priorityName: string, limit: number, offset: number) {
     const connection = await this.databaseService.getConnection();
+    const sanitizedLimit = Math.max(0, limit);
+    const sanitizedOffset = Math.max(0, offset);
 
     try {
       const [allCustomerPriority] = await connection.query(
-        'SELECT * FROM customer WHERE priority = ?',
-        [priorityName]
+        'SELECT * FROM customer WHERE priority = ? LIMIT ? OFFSET ?',
+        [ priorityName, sanitizedLimit, sanitizedOffset ]
       ); 
       return allCustomerPriority;
     } catch (error) {
