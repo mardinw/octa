@@ -3,10 +3,7 @@
 		<div class="md:mx-auto w-full bg-white overflow-x-auto md:block">
 			<!-- select for export -->
 			<div class="p-4 grid grid-cols-2">
-				<select class="select select-bordered max-w-xs" id="export">
-					<option disabled selected>Export to ?</option>
-					<option value='excel'>EXCEL</option>
-				</select>
+				<button id="export" class="btn btn-info text-white">EXCEL</button>
 			</div>
 			<div class="overflow-x-auto md:block">
 				<table aria-label="load data customer" class="table-auto">
@@ -119,10 +116,13 @@
 	</main>
 </div>
  <script>
+
+	 /*
 	 document.getElementById('export').addEventListener('change', function() {
 		 var selectedValue = this.value;
 		 handleSelectionChange(selectedValue);
 	 });
+	*/
 
 	 document.addEventListener('DOMContentLoaded', function() {
 		 const checkAll = document.getElementById('selectAll');
@@ -142,13 +142,15 @@
 	 });
 
 	 document.getElementById('selectID').addEventListener('change', function() {
-		 var checkedValue = this.value;
+		 const selectedCheckboxes = document.querySelectorAll('input[name="selectedItems"]:checked');
+		 const checkedValue = Array.from(selectedCheckboxes).map((checkbox) => checkbox.value);
+
 		 var selectedValue = document.getElementById('export').value;
 		 handleSelectionChange(selectedValue, checkedValue);
 	 });
 
 	 function handleSelectionChange(selectedValue, checkedValue) {
-		 if (checkedValue !== "") {
+		 if (checkedValue) {
 			 window.location.href= `/files/export?format=${selectedValue}&select=${checkedValue}`;
 		 } else {
 			 window.location.href= `/files/export?format=${selectedValue}`;

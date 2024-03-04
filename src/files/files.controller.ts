@@ -11,11 +11,16 @@ export class FilesController {
   ) {}
 
   @Get('export')
-  async exportExcel(@Query('format') format: string, cardNumber: number[], @Res() res: Response, @Session() session: Record<string, any>) {
-    if (format === 'excel') {
-      const data = await this.accountService.customerCardNumber(cardNumber);
+  async exportExcel(@Query('format') format: string, @Query('select') select: string, @Res() res: Response, @Session() session: Record<string, any>) {
+    if (format === 'excel' && select) {
+      const selectNumber = parseInt(select, 10)
+      const data = await this.accountService.customerCardNumber(selectNumber);
 
-      await this.excelService.streamExcel(data, res)
+      await this.excelService.streamExcel(data as any[], res);
+    } else if (format === "excel") {
+      const data = await this.accountService.customersAll();
+
+      await this.excelService.streamExcel(data, res);
     }
   }
 }
