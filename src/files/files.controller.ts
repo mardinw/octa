@@ -11,9 +11,9 @@ export class FilesController {
   ) {}
 
   @Get('export')
-  async exportExcel(@Query('format') format: string, @Res() res: Response, @Session() session: Record<string, any>) {
+  async exportExcel(@Query('format') format: string, cardNumber: number[], @Res() res: Response, @Session() session: Record<string, any>) {
     if (format === 'excel') {
-      const data = await this.accountService.customersAll();
+      const data = await this.accountService.customerCardNumber(cardNumber);
 
       await this.excelService.streamExcel(data, res)
     }
