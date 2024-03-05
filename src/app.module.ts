@@ -17,12 +17,13 @@ import { ExcelkitModule } from './excelkit/excelkit.module';
 import { PriorityService } from './priority/priority.service';
 import { FilesModule } from './files/files.module';
 import { PriorityModule } from './priority/priority.module';
+import { PtpModule } from './ptp/ptp.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     envFilePath: ['.env'],
     isGlobal: true,
-  }), AuthModule, AdminModule, DatabaseModule, UsersModule, PdfkitModule, ExcelkitModule, FilesModule, PriorityModule,
+  }), AuthModule, AdminModule, DatabaseModule, UsersModule, PdfkitModule, ExcelkitModule, FilesModule, PriorityModule, PtpModule,
   ],
   controllers: [AppController, AccountController, UsersController],
   providers: [AccountService, DatabaseService, UsersService, PriorityService],
