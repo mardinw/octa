@@ -11,11 +11,11 @@ export class PriorityService {
     const connection = await this.databaseService.getConnection();
 
     try {
-      const [allPriority]  = await connection.query(
+      const [queryResult]  = await connection.query(
         'SELECT priority FROM priority',
       );
 
-      return allPriority;
+      return queryResult;
     } catch (error) {
       throw new Error(`Error fetching customers: ${error.message}`);
     } finally {
